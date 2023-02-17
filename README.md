@@ -6,9 +6,9 @@ git clone https://github.com/fstaeg/croc_tools.git
 cd croc_tools
 source setup.sh
 ```
-- `setup.sh` makes the scripts executable and adds the `croc_tools` directory to `$PATH`, so they can be run from within the run directory in `Ph2_ACF` (or anywhere else)
+`setup.sh` makes the scripts executable and adds the `croc_tools` directory to `$PATH`, so they can be run from within the run directory in `Ph2_ACF` (or anywhere else)
  
- 
+
 ### `mux_vdd.py`
 
 Measure `VDDA`, `VDDD` using the ADC:
@@ -16,9 +16,12 @@ Measure `VDDA`, `VDDD` using the ADC:
   - `voltage (mV) = VMux * slope + offset`
   - `current (mA) = (IMux * slope + offset) / 4990`
 - Look up `slope` and `offset` for each chip in the wafer probing data and add them to the function `ADCtoVoltage` in `adc_tools.py`
-- From the run directory in `Ph2_ACF`, run `MuxScan`: `RD53BminiDAQ -f CROC.xml -t RD53BTools.toml -h MuxScan`
+- From the run directory in `Ph2_ACF`, run `MuxScan`: 
+```sh
+RD53BminiDAQ -f CROC.xml -t RD53BTools.toml -h MuxScan
+```
 - `mux_vdd.py -m {MODULE} -i Results/MuxScan`
-  - If directory `Results/MuxScan` already exists, the results of the MuxScan are to `Results/MuxScan_1` etc
+  - If directory `Results/MuxScan` already exists, the results of the MuxScan are saved to `Results/MuxScan_1` etc
 
 
 ### `probecard_readout.py`
@@ -56,7 +59,7 @@ Install the Ph2_ACF software from https://gitlab.cern.ch/alpapado/Ph2_ACF
 
 - Software that has to be installed first: 
   - `epel-release`, `pugixml-devel`, `boost-devel`, `centos-release-scl`, `devtoolset-10` (install using `sudo yum install`)
-  - [`CERN ROOT`](https://root.cern.ch/), [`IPBus`](http://ipbus.web.cern.ch/ipbus) (install from source)
+  - [CERN ROOT](https://root.cern.ch/), [IPBus](http://ipbus.web.cern.ch/ipbus) (install from source)
 - Clone git repo:
 ```sh
 git clone --recurse-submodules https://gitlab.cern.ch/alpapado/Ph2_ACF.git
@@ -71,6 +74,8 @@ cmake ..; make -j8; cd ..
   - Hardware description file: `cp settings/CROC.xml rundir`
   - Tools configuration file: `cp settings/RD53BTools.toml rundir`
   - `cp settings/RD53B.toml rundir; cd rundir`
+- For a quad module you can use the config files from `croc_tools/config_templates/`:
+  - `CROC.xml`, `RD53B_0.toml`, `RD53B_1.toml`, `RD53B_2.toml`, `RD53B_3.toml`
 
 
 ### Install FC7 manager
