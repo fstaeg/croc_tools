@@ -25,7 +25,7 @@ if __name__ == '__main__':
     parser = ArgumentParser()
     parser.add_argument('--filename', '-f', default=None)
     args = parser.parse_args()
-
+    print('1')
     if args.filename is not None and args.filename[-4:] != '.csv': 
         args.filename += '.csv'
 
@@ -41,10 +41,10 @@ if __name__ == '__main__':
     header_str += '     vddd3'
 
     voltages_to_csv = [['time-stamp','vin','vdda0','vddd0','vdda1','vddd1','vdda2','vddd2','vdda3','vddd3']]
-
+    print('2')
     if args.filename is None: max_printouts = 100
     else: max_printouts = 5
-
+    print('3')
     n_printouts = 0
     while n_printouts < max_printouts:
         if not n_printouts%10:
@@ -72,7 +72,7 @@ if __name__ == '__main__':
         voltages_str+= f'{vdda3:4.3f}    {vddd3:4.3f}    '
         print(voltages_str)
         voltages_to_csv.append([time_str,vin,vdda0,vddd0,vdda1,vddd1,vdda2,vddd2,vdda3,vddd3])
-    
+    print('4')
     if args.filename is not None:
         averages = [0. for icol in range(len(voltages_to_csv[-1]))]
         stdevs = [0. for icol in range(len(voltages_to_csv[-1]))]
@@ -105,3 +105,4 @@ if __name__ == '__main__':
                 writer.writerow(row)
         print('-'*110)
         print('saved output to "%s"\n' % filename)
+
